@@ -3,6 +3,8 @@ This project is [available on arXiV](https://arxiv.org/abs/2603.13596) and is cu
 
 This is an analysis pipeline for evaluating the effect of non-central, angular constraints in colloidal depletion gels.
 
+Simulations with these angular constraints can be generated using Paniz Haghighi's implementation in HOOMD-blue v4.2.1, available upon request: haghighi.p@northeastern.edu
+
 ## What to expect
 For systems of ~10,000 colloidal particles, calculate:
 - Coordination number distribution and average coordination number
