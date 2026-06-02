@@ -63,4 +63,4 @@ rigidity, percolation, and mechanical design in disordered systems.*
 This is a collaboration with experiments done by the [Soft Matter Engineering Laboratory](https://smel.eng.uci.edu/) at the University of California, Irvine. \
 This work was done by Calvin (Ziye) Zhuang, [Rob Campbell](https://scholar.google.com/citations?user=i8S54zYAAAAJ&hl=en), [Paniz Haghighi](https://scholar.google.com/citations?user=LSuqU6YAAAAJ&hl=en), 
 [Safa Jamali](https://scholar.google.com/citations?user=D1asaYIAAAAJ&hl=en), and [Ali Mohraz](https://scholar.google.com/citations?user=pW80NaAAAAAJ&hl=en). \
-Authors acknowledge support from the National Science Foundation and NASA ROSES FINESST.
+Authors acknowledge support from the National Science Foundation (PMP-2025613).
