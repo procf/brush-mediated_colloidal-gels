@@ -1,0 +1,178 @@
+#!/bin/bash
+
+### IMPROVE NUMERICAL STABILITY AT THE GELATION BOUNDARY
+### when the range of rigidity (hb) and the range of attraciton (kappa_m)
+### there can be a build up of numerical instability at weak attraction
+### strengths (i.e. near the gelation boundar)
+### extended ranges can be used to correct this effect
+
+salts=( '2.5' '3.5' '5' '10' )
+
+monomer=('L' )
+Z=('359' )
+charges=( '22' )
+r0_values=( '4' )
+kappa_m=( '20' ) 
+
+### boundary conditions: salt = 2.5
+kappa_e_2=( '113' )
+L_elec_L_2=( '1.2' )
+D0_2=( '28' '38' )
+morse_tags_2=('6mgmL' '8mgmL')
+U0_2_L=( '21.1' '28.6')
+
+### boundary conditions: salt = 3.5
+kappa_e_3=( '134' )
+L_elec_L_3=( '1.2' )
+D0_3=( '28' )
+morse_tags_3=('6mgmL')
+U0_3_L=( '22.8' ) 
+
+### boundary conditions: salt = 5
+kappa_e_5=( '160' )
+L_elec_L_5=( '1.2' )
+D0_5=( '19' '28' )
+morse_tags_5=('4mgmL' '6mgmL')
+U0_5_L=( '15.5' '24.3' )
+
+
+### boundary conditions: salt = 10
+kappa_e_10=( '226' )
+L_elec_L_10=( '1.2' )
+D0_10=( '14' '19' )
+morse_tags_10=('3mgmL' '4mgmL')
+U0_10_L=( '12.4' '17.1' )
+
+# brush effects
+hb_values=( '60' )
+K_scale=( '1' ) # scale K with total attraction
+
+
+# Redirect stdout and stderr to a file named with today's date
+# (but use tee so that the output is also displayed on the terminal)
+current_date=$(date +"%Y-%m-%d")
+output_file="joblist_${current_date}_stability.txt"
+exec > >(tee -a "$output_file") 2>&1
+
+pwd
+
+for ((p=0; p<${#Z[@]}; p++)); do
+  monomer_val="${monomer[$p]}"
+  Z_val="${Z[$p]}"
+  charge_tag="${charges[$p]}mV"
+  r0_val="${r0_values[$p]}"
+  km_val="${kappa_m[$p]}"
+
+  for ((h=0; h<${#hb_values[@]}; h++)); do  
+    hb_val="${hb_values[$h]}"
+
+    for ((s=0; s<${#salts[@]}; s++)); do
+      salt_tag="${salts[$s]}mM"
+
+      # kappa_e
+      case "$salt_tag" in
+        "2.5mM") declare -n kappa_e="kappa_e_2" ;;
+        "3.5mM") declare -n kappa_e="kappa_e_3" ;;
+        "5mM")   declare -n kappa_e="kappa_e_5" ;;
+        "10mM")  declare -n kappa_e="kappa_e_10" ;;
+        *) echo "Unknown salt value: $salt_tag"; continue ;;
+      esac
+      kappa_e_val="${kappa_e[$s]}"
+
+      # L_elec
+      case "$monomer_val" in
+        "H")
+          echo "Stability sims should only be run for L monomer, not $monomer_val"
+          continue
+          ;;
+        "L")
+          case "$salt_tag" in
+            "2.5mM") declare -n L_elec="L_elec_L_2" ;;
+            "3.5mM") declare -n L_elec="L_elec_L_3" ;;
+            "5mM")   declare -n L_elec="L_elec_L_5" ;;
+            "10mM")  declare -n L_elec="L_elec_L_10" ;;
+            *) echo "Unknown salt value: $salt_tag"; continue ;;
+          esac
+          ;;
+        *)
+          echo "Unknown monomer value: $monomer_val"
+          continue
+          ;;
+      esac
+      L_elec_val="${L_elec[$s]}"
+
+      # D0
+      case "$salt_tag" in
+        "2.5mM") declare -n D0="D0_2" ;;
+        "3.5mM") declare -n D0="D0_3" ;;
+        "5mM")   declare -n D0="D0_5" ;;
+        "10mM")  declare -n D0="D0_10" ;;
+        *) echo "Unknown salt value: $salt_tag"; continue ;;
+      esac
+
+      # morse_tags
+      case "$salt_tag" in
+        "2.5mM") declare -n morse_tags="morse_tags_2" ;;
+        "3.5mM") declare -n morse_tags="morse_tags_3" ;;
+        "5mM")   declare -n morse_tags="morse_tags_5" ;;
+        "10mM")  declare -n morse_tags="morse_tags_10" ;;
+        *) echo "Unknown salt value: $salt_tag"; continue ;;
+      esac
+
+      # U0
+      case "$salt_tag" in
+        "2.5mM") declare -n U0="U0_2_${monomer_val}" ;;
+        "3.5mM") declare -n U0="U0_3_${monomer_val}" ;;
+        "5mM")   declare -n U0="U0_5_${monomer_val}" ;;
+        "10mM")  declare -n U0="U0_10_${monomer_val}" ;;
+        *) echo "Unknown salt value: $salt_tag"; continue ;;
+      esac
+
+      for ((d=0; d<${#D0[@]}; d++)); do  
+        D0_val="${D0[$d]}"
+        morse_tag="${morse_tags[$d]}"
+
+        U0_val="${U0[$d]}"
+        #echo $U0_val
+
+	for ((ks=0; ks<${#K_scale[@]}; ks++)); do
+          scale=${K_scale[$ks]}
+  	  K_val=$(printf "%.0f" "$(echo "$U0_val * $scale" | bc -l)")
+
+          # file tag
+          #tag="${morse_tag}-${salt_tag}-r${r0_val}nm_h${hb_val}nm-K${K_val}_${monomer_val}"
+          tag="${morse_tag}-${salt_tag}-K${K_val}_${monomer_val}"
+          #echo $tag
+
+          path="K_${scale}xUC/hb_${hb_val}nm-${monomer_val}_stability/$morse_tag-$salt_tag-K${K_val}"
+          echo $path
+
+          mkdir -p "$path"
+
+          cp sim-gel-morsebrush-BD.py $path/
+          cp job-gel-morsebrush-BD $path/job-tmp
+          sed -i "s/tag/${tag}/g" $path/job-tmp
+          sed -i "s/D0/${D0_val}/g" $path/job-tmp
+          sed -i "s/kappa_m/${km_val}/g" $path/job-tmp
+          sed -i "s/kappa_e/${kappa_e_val}/g" $path/job-tmp
+          sed -i "s/Z_val/${Z_val}/g" $path/job-tmp
+          sed -i "s/L_elec/${L_elec_val}/g" $path/job-tmp
+          sed -i "s/r0_val/${r0_val}/g" $path/job-tmp
+          sed -i "s/hb_val/${hb_val}/g" $path/job-tmp
+          sed -i "s/m_K_val/${K_val}/g" $path/job-tmp
+
+          cd $path
+          sbatch job-tmp
+          cd ../../../
+          echo "---"
+
+        done
+        unset -n kappa_e
+        unset -n L_elec
+	unset -n D0
+	unset -n morse_tags
+	unset -n U0
+      done
+    done
+  done
+done

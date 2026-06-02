@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH -J init-hb-BD
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH -t 24:00:00
+#SBATCH -o %A.out
+#SBATCH -e %A.err
+
+start=$SECONDS
+
+module purge
+module load miniconda3/24.11.1
+source /software/hoomd4.2.1-mod-rigidity/hoomdmod4.2.1-rigidity-venv/bin/activate
+module load OpenMPI/4.1.6
+
+python3 sim-init-brush-BD.py
+
+time=$((SECONDS-start))
+echo The simulation ran for $((time / 86400))day"(s)" $(((time / 3600) % 24))hr"(s)" $(((time / 60) % 60))min $((time% 60))sec real "(wall clock)" time >&1
