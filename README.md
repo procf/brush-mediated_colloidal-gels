@@ -1,5 +1,5 @@
 # Brush-mediated angular constraints reshape structure, rigidity, and percolation in colloidal depletion gels
-This project is submitted to Nature Communications.
+This project is [available on arXiV](https://arxiv.org/abs/2603.13596) and is currently under review.
 
 This is an analysis pipeline for evaluating the effect of non-central, angular constraints in colloidal depletion gels.
 
@@ -40,7 +40,7 @@ We developed a new theoretical model that can mimic these effects in simulation.
 The code in this repo quantitatively evaluates the observed change in structure and the mesoscale 
 strucutral origins of the change in mechanics.
 
-Here's the submission abstract: 
+Here's the abstract: 
 
 *Colloidal gels, like many other soft and disordered solids derive their mechanical properties not only from
 the strength of interparticle attraction, but also from the symmetry of the forces that constrain particle motion.
