@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#SBATCH -J netx
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH -t 24:00:00
+#SBATCH -p short
+#SBATCH -o %A-anlyz.out
+#SBATCH -e %A-anlyz.err
+
+start=$SECONDS
+
+module load miniconda3/24.11.1
+source /software/hoomd4.2.1-mod-rigidity/hoomdmod4.2.1-rigidity-venv/bin/activate 
+module load OpenMPI/4.1.6
+
+# run the analysis file(s)
+python sim-build-particle-network.py 'H'
+echo '--------'
+python sim-build-particle-network.py 'L'
+
+time=$((SECONDS-start))
+echo The simulation ran for $((time / 86400))day"(s)" $(((time / 3600) % 24))hr"(s)" $(((time / 60) % 60))min $((time % 60))sec real "(wall clock)" time >&1

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#SBATCH -J anlyzBD
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH -t 1:00:00
+#SBATCH -p long
+#SBATCH -o %A-anlyz.out
+#SBATCH -e %A-anlyz.err
+
+start=$SECONDS
+
+# Read the filename from the command-line argument
+FILE="$1"
+TAG="$2"
+HB="$3"
+KM="$4"
+
+# Ensure the filename is provided
+if [ -z "$FILE" ]; then
+    echo "Error: No filename provided."
+    exit 1
+fi
+if [ -z "$TAG" ]; then
+    echo "Error: No file tag provided."
+    exit 1
+fi
+if [ -z "$HB" ]; then
+    echo "Error: No brush size (hb) provided."
+    exit 1
+fi
+if [ -z "$KM" ]; then
+    echo "Error: No attraction rage (kappa_m) provided."
+    exit 1
+fi
+
+module load miniconda3/24.11.1
+source /software/hoomd4.2.1-mod-rigidity/hoomdmod4.2.1-rigidity-venv/bin/activate 
+module load OpenMPI/4.1.6
+
+# run the analysis file(s)
+python sim-analysis-batch-BD.py $FILE $TAG $HB $KM
+
+
+time=$((SECONDS-start))
+echo The simulation ran for $((time / 86400))day"(s)" $(((time / 3600) % 24))hr"(s)" $(((time / 60) % 60))min $((time % 60))sec real "(wall clock)" time >&1
