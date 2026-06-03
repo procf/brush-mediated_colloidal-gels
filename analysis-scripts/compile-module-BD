@@ -7,7 +7,7 @@
 
 # compile the fortran module for use analyzing simulation data
 module load miniconda3/24.11.1
-source /projects/props/Rob/software/hoomd4.2.1-mod/hoomdmod4.2.1-venv/bin/activate
+source /software/hoomd4.2.1-mod-rigidity/hoomdmod4.2.1-rigidity-venv/bin/activate
 
 #pip install charset_normalizer
 gfortran -c -fPIC solvopt.f90
