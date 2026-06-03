@@ -1,7 +1,7 @@
 # Brush-mediated angular constraints reshape structure, rigidity, and percolation in colloidal depletion gels
 Results from this project are [available on arXiV](https://arxiv.org/abs/2603.13596) and are currently under review.
 
-This is a simulation and analysis pipeline for evaluating the effect of non-central, angular constraints in colloidal depletion gels.
+This is a simulation and analysis pipeline for evaluating the effect of brush-mediated non-central, angular constraints in colloidal depletion gels.
 
 Simulations with these angular constraints can be run using the [sim-scripts](./sim-scripts) and Paniz Haghighi's implementation of angular bending rigidity in HOOMD-blue v4.2.1 (publication of the full software is in prep, and is available upon request: haghighi.p@northeastern.edu)
 
@@ -17,7 +17,7 @@ Note: Standard analyses typically take less than 20min. GMM clustering can take 
 
 For a given system, depletion interaction parameters can be caluclated from experiment using the [colloid-morse-calc](https://github.com/procf/colloid-morse-calc)
 
-For the modified brush-mediated interactions used here, the total interaction can then be calculated using potential-plot.py
+For the modified brush-mediated interactions used here, the total interaction can then be calculated using [potential-plot.ipynb](./potential-plot.ipynb) [![Binder](https://mybinder.org/v2/gh/procf/brush-mediated_colloidal-gels/HEAD?urlpath=%2Fdoc%2Ftree%2Fpotential_plot.ipynb)
 
 ## Software/package requirements
 In this project, the following packages are actively used:
