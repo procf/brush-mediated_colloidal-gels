@@ -1,9 +1,9 @@
 # Brush-mediated angular constraints reshape structure, rigidity, and percolation in colloidal depletion gels
-This project is [available on arXiV](https://arxiv.org/abs/2603.13596) and is currently under review.
+Results from this project are [available on arXiV](https://arxiv.org/abs/2603.13596) and are currently under review.
 
-This is an analysis pipeline for evaluating the effect of non-central, angular constraints in colloidal depletion gels.
+This is a simulation and analysis pipeline for evaluating the effect of non-central, angular constraints in colloidal depletion gels.
 
-Simulations with these angular constraints can be run using the [sim-scripts](./sim-scripts) and Paniz Haghighi's implementation in HOOMD-blue v4.2.1, available upon request: haghighi.p@northeastern.edu
+Simulations with these angular constraints can be run using the [sim-scripts](./sim-scripts) and Paniz Haghighi's implementation of angular bending rigidity in HOOMD-blue v4.2.1 (publication of the full software is in prep, and is available upon request: haghighi.p@northeastern.edu)
 
 ## What to expect
 For systems of ~10,000 colloidal particles, use [analysis-scripts](./analysis-scripts) to calculate:
@@ -15,9 +15,9 @@ For systems of ~10,000 colloidal particles, use [analysis-scripts](./analysis-sc
 
 Note: Standard analyses typically take less than 20min. GMM clustering can take ~9hrs. Cauchy-Born estimate takes <1min.
 
-Depletion interaction parameters can be caluclated from experiment using the [colloid-morse-calc](https://github.com/procf/colloid-morse-calc)
+For a given system, depletion interaction parameters can be caluclated from experiment using the [colloid-morse-calc](https://github.com/procf/colloid-morse-calc)
 
-For our modified brush-mediated interactions, total interactions can be calculated using potential-plot.py
+For the modified brush-mediated interactions used here, the total interaction can then be calculated using potential-plot.py
 
 ## Software/package requirements
 In this project, the following packages are actively used:
@@ -38,13 +38,13 @@ The program was tested on a single HPC-node running Rocky Linux 9.3 (kernel 5.14
 ## Background
 
 Colloidal gel rheology is directly influenced by a gel's underlying particle structure. 
-We discovered a new way to modify this structure in experiments. By changing the density of electro-steric surface grafted brush coatings 
+We discovered a new way to alter this structure in experiments. By changing the density of electro-steric surface grafted brush coatings 
 on colloidal particles we observe the formation of highly stable, fractal-like gels that exhibit a significantly higher elastic modulus 
 (2.7x higher) than their traditional counterparts. This change is consitent with the emergence of non-central angular bending rigidity. 
 We developed a new theoretical model that can mimic these effects in simulation. 
 
-The code in this repo quantitatively evaluates the observed change in structure and the mesoscale 
-strucutral origins of the change in mechanics.
+The code in this repo simulates these effects and quantitatively evaluates the observed change in structure. 
+It also examines the mesoscale strucutral origins of the change in mechanics using Cauchy-Born theory.
 
 Here's the abstract: 
 
