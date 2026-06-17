@@ -3,7 +3,7 @@ Results from this project are [available on arXiV](https://arxiv.org/abs/2603.13
 
 This is a simulation and analysis pipeline for evaluating the effect of brush-mediated non-central, angular constraints in colloidal depletion gels.
 
-Simulations with these angular constraints can be run using the [sim-scripts](./sim-scripts) and Paniz Haghighi's implementation of angular bending rigidity in HOOMD-blue v4.2.1 (publication of the full software is in prep, and is available upon request: haghighi.p@northeastern.edu)
+Simulations with these angular constraints can be run using the [sim-scripts](./sim-scripts) and the MorseBrushE0 extension of Paniz Haghighi's implementation of angular bending rigidity in HOOMD-blue v4.2.1 (publication of Paniz's full software method is in prep. It is available upon request and will be linked here when published)
 
 ## What to expect
 For systems of ~10,000 colloidal particles, use [analysis-scripts](./analysis-scripts) to calculate:
