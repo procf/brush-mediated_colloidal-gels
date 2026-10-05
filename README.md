@@ -1,9 +1,12 @@
 # Brush-mediated angular constraints reshape structure, rigidity, and percolation in colloidal depletion gels
-Results from this project are [available on arXiV](https://arxiv.org/abs/2603.13596) and are currently under review.
-
 This is a simulation and analysis pipeline for evaluating the effect of brush-mediated non-central, angular constraints in colloidal depletion gels.
+Results from this project are published in _Science Advances_:
 
-Simulations with these angular constraints can be run using the [sim-scripts](./sim-scripts) and the MorseBrushE0 extension of Paniz Haghighi's implementation of angular bending rigidity in HOOMD-blue v4.2.1 (publication of Paniz's full software method is in prep. It is available upon request and will be linked here when published)
+> Ziye Zhuang et al., Brush-mediated angular constraints reshape structure, rigidity, and percolation in colloidal depletion gels.
+> Sci. Adv. 12, eaeh5537 (2026). DOI: [10.1126/sciadv.aeh5537](https://doi.org/10.1126/sciadv.aeh5537)
+
+Simulations with these angular constraints can be run using the [sim-scripts](./sim-scripts) and the MorseBrushE0 extension of Paniz Haghighi's implementation of angular bending rigidity in HOOMD-blue v4.2.1 <br>
+(publication of Paniz's full software method is in prep. It is available upon request and will be linked here when published)
 
 ## What to expect
 For systems of ~10,000 colloidal particles, use [analysis-scripts](./analysis-scripts) to calculate:
