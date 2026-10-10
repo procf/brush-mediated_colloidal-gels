@@ -1,5 +1,6 @@
 # Brush-mediated angular constraints reshape structure, rigidity, and percolation in colloidal depletion gels
 This is a simulation and analysis pipeline for evaluating the effect of brush-mediated non-central, angular constraints in colloidal depletion gels.
+
 Results from this project are published in _Science Advances_:
 
 > Ziye Zhuang et al., Brush-mediated angular constraints reshape structure, rigidity, and percolation in colloidal depletion gels.
